@@ -8,14 +8,25 @@ import React from "react";
 import "./App.css";
 // import the PostsPage and SearchBar and add them to the App
 
+import PostsPage from './components/PostsContainer/PostsPage';
+import SearchBar from './components/SearchBar/SearchBarContainer';
+
+import dummyData from './dummy-data';
+
 
 const App = () => {
+    function search(event) {
+        event.preventDefault();
+        const searchQuery = document.getElementById('searchQuery');
+        console.log(searchQuery.value);
+    }
 
-  return (
-    <div className="App">
-      {/* Add imported components here to render them */}
-    </div>
-  );
+    return (
+        <div className="App">
+            <SearchBar search={search} />
+            <PostsPage postsArr={dummyData} />
+        </div>
+    );
 };
 
 export default App;
