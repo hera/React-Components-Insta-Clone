@@ -4,7 +4,7 @@ PostsContainer components and the CommentSection Components.
 Not all files need code added. 
 Look at each file to see where you need to pass props or add code 
 */
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
 // import the PostsPage and SearchBar and add them to the App
 
@@ -15,16 +15,24 @@ import dummyData from './dummy-data';
 
 
 const App = () => {
+    const [searchQuery, setSearch] = useState('');
+
     function search(event) {
         event.preventDefault();
         const searchQuery = document.getElementById('searchQuery');
-        console.log(searchQuery.value);
+        setSearch(searchQuery.value);
     }
+
+    let filteredData = dummyData.filter((post) => {
+        if (post.username.includes(searchQuery)) {
+            return post;
+        }
+    });
 
     return (
         <div className="App">
             <SearchBar search={search} />
-            <PostsPage postsArr={dummyData} />
+            <PostsPage postsArr={filteredData || dummyData} />
         </div>
     );
 };
